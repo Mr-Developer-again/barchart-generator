@@ -3,14 +3,14 @@
 
 #include <../include/qcustomplot.h>
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+Arad::MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent),
+      ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 }
 
-MainWindow::~MainWindow()
+Arad::MainWindow::~MainWindow()
 {
     delete ui;
 }

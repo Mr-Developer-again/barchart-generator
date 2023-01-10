@@ -7,7 +7,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    
+
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
     for (const QString &locale : uiLanguages) {
@@ -17,7 +17,8 @@ int main(int argc, char *argv[])
             break;
         }
     }
-    MainWindow w;
+
+    Arad::MainWindow w;
     w.show();
     return a.exec();
 }
