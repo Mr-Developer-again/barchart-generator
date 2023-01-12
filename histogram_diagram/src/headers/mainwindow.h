@@ -1,14 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-// ========== My Headers ============ //
 #include <../include/qcustomplot.h>
 
-// =========== C++ Libraries =========== //
 #include <vector>
 
-// ======== Qt Libraries ========== //
 #include <QMainWindow>
+#include <QString>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,11 +22,41 @@ namespace Arad
 
     public:
         MainWindow(QWidget *parent = nullptr);
-        ~MainWindow();
+        virtual ~MainWindow();
+
+        /// sets range of scopes in histogram diagram
+        void setRange(uint32_t);
         
-        std::vector<float> csvContents;
+        /// gets range of scopes in historgram diagram
+        uint32_t getRange() const;
+        
+        /// sets user input path
+        void setPath(QString const&);
+        
+        /// gets user input path
+        QString getPath() const;
+        
+        /// sets user input delimiter
+        void setDelimiter(QString const&);
+        
+        /// gets user input delimiter
+        QString getDelimiter() const;
+        
     private:
         Ui::MainWindow *ui;
+
+        /// range of scopes in histogram diagram
+        uint32_t _range = 0;
+        
+        /// CSV file path
+        QString _csvFilePath = "";
+        
+        /// delimiter between CSV line contents
+        QString _csvContentsDelimiter = "";
+        
+    private slots:
+        /// this slot fill some variables with input lines (in lineEdit sections)
+        void slotGettingInputInformation();
     };
     
 } // Arad namespace

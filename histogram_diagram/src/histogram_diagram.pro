@@ -11,11 +11,13 @@ CONFIG += c++17
 SOURCES += \
     "sources/main.cpp" \
     "sources/mainwindow.cpp" \
-	"../include/qcustomplot.cpp"
+	"../include/qcustomplot.cpp" \
+    "sources/csvparser.cpp"
 
 HEADERS += \
     "headers/mainwindow.h" \
-	"../include/qcustomplot.h"
+	"../include/qcustomplot.h" \
+	"headers/csvparser.h"
 
 FORMS += \
     "./mainwindow.ui"
