@@ -6,29 +6,29 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>896</width>
-    <height>600</height>
+    <width>756</width>
+    <height>470</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="lineEdit_range">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>30</y>
+      <y>270</y>
       <width>121</width>
       <height>25</height>
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="label_range">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>250</y>
       <width>161</width>
       <height>17</height>
      </rect>
@@ -37,22 +37,22 @@
      <string>Enter Arbitrary Range:</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
+   <widget class="QLineEdit" name="lineEdit_filePath">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>90</y>
+      <y>30</y>
       <width>361</width>
       <height>25</height>
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="label_filePath">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>70</y>
-      <width>141</width>
+      <y>10</y>
+      <width>135</width>
       <height>17</height>
      </rect>
     </property>
@@ -60,21 +60,21 @@
      <string>Enter CSV File Path:</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_3">
+   <widget class="QLineEdit" name="lineEdit_delimiter">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>150</y>
+      <y>90</y>
       <width>131</width>
       <height>25</height>
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="label_delimiter">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>130</y>
+      <y>70</y>
       <width>331</width>
       <height>20</height>
      </rect>
@@ -86,8 +86,8 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>490</x>
-      <y>80</y>
+      <x>480</x>
+      <y>100</y>
       <width>251</width>
       <height>151</height>
      </rect>
@@ -96,11 +96,11 @@
      <string>PushButton</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QLabel" name="label_heightColumn">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>190</y>
+      <y>130</y>
       <width>111</width>
       <height>17</height>
      </rect>
@@ -109,7 +109,17 @@
      <string>Height Column:</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_4">
+   <widget class="QLineEdit" name="lineEdit_heightColumn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>113</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_weightColumn">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -119,21 +129,11 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_5">
+   <widget class="QLabel" name="label_weightColumn">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>270</y>
-      <width>113</width>
-      <height>25</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>250</y>
+      <y>190</y>
       <width>111</width>
       <height>17</height>
      </rect>
@@ -143,8 +143,15 @@
     </property>
    </widget>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>lineEdit_filePath</tabstop>
+  <tabstop>lineEdit_delimiter</tabstop>
+  <tabstop>lineEdit_heightColumn</tabstop>
+  <tabstop>lineEdit_weightColumn</tabstop>
+  <tabstop>lineEdit_range</tabstop>
+  <tabstop>pushButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -1,5 +1,6 @@
-#include "headers/mainwindow.h"
-#include "ui_mainwindow.h"
+#include <headers/mainwindow.h>
+#include <ui_mainwindow.h>
+
 #include <../include/qcustomplot.h>
 
 #include <fstream>
@@ -66,18 +67,37 @@ uint32_t Arad::MainWindow::getWeightColumn() const
 
 void Arad::MainWindow::slotGettingInputInformation()
 {
-    Arad::MainWindow::setRange(ui->lineEdit->text());
-    Arad::MainWindow::setPath(ui->lineEdit_2->text());
-    Arad::MainWindow::setDelimiter(ui->lineEdit_3->text());
-    Arad::MainWindow::setHeightColumn(ui->lineEdit_4->text());
-    Arad::MainWindow::setWeightColumn(ui->lineEdit_5->text());
+    Arad::MainWindow::setPath(ui->lineEdit_filePath->text());
+    Arad::MainWindow::setDelimiter(ui->lineEdit_delimiter->text());
+    Arad::MainWindow::setHeightColumn(ui->lineEdit_heightColumn->text());
+    Arad::MainWindow::setWeightColumn(ui->lineEdit_weightColumn->text());
+    Arad::MainWindow::setRange(ui->lineEdit_range->text());
 
     QFont pushButtonFont("Consolas", -1, 50, true);
     ui->pushButton->setFont(pushButtonFont);
     ui->pushButton->setText("OK");
+    
+    /// configuring this->_heightPushButton
+    this->_heightPushButton = new QPushButton("Height", this);
+    this->_heightPushButton->setGeometry(300, 370, 151, 25);
+    this->_heightPushButton->show();
+    
+    /// configuraing this->_weightPushButton
+    this->_weightPushButton = new QPushButton("Weight", this);
+    this->_weightPushButton->setGeometry(300, 400, 151, 25);
+    this->_weightPushButton->show();
+    
+    /// configuring this->heightWeightLabel
+    this->_heightWeightLabel = new QLabel(this);
+    this->_heightWeightLabel->setGeometry(300, 340, 151, 17);
+    this->_heightWeightLabel->setText("Select one of these:");
+    this->_heightWeightLabel->show();
 }
 
 Arad::MainWindow::~MainWindow()
 {
     delete ui;
+    delete this->_heightPushButton;
+    delete this->_weightPushButton;
+    delete this->_heightWeightLabel;
 }

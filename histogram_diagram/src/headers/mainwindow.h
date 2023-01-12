@@ -6,7 +6,9 @@
 #include <vector>
 
 #include <QMainWindow>
-#include <QString>
+#include <QTextStream>
+#include <QPushButton>
+#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -71,6 +73,18 @@ namespace Arad
         
         /// column number of weight information
         uint32_t _weightColumn = 0;
+        
+        /// after user enters initial information, two pushButtons must be
+        /// shown for selecting "Height" or "Weight" (for creating table and
+        /// printing diagram for that object)
+        QPushButton *_heightPushButton = nullptr;
+        QPushButton *_weightPushButton = nullptr;
+        
+        /// one label for two QPushButton above
+        QLabel *_heightWeightLabel = nullptr;
+        
+        /// the following nested vector will store ranged information
+//        QVector<QVector<float>> _
         
     private slots:
         /// this slot fill some variables with input lines (in lineEdit sections)
