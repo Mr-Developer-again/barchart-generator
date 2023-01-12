@@ -25,7 +25,7 @@ namespace Arad
         virtual ~MainWindow();
 
         /// sets range of scopes in histogram diagram
-        void setRange(uint32_t);
+        void setRange(QString const&);
         
         /// gets range of scopes in historgram diagram
         uint32_t getRange() const;
@@ -42,6 +42,18 @@ namespace Arad
         /// gets user input delimiter
         QString getDelimiter() const;
         
+        /// sets user input height column
+        void setHeightColumn(QString const&);
+        
+        /// gets user input height column
+        uint32_t getHeightColumn() const;
+        
+        /// sets user input weight column
+        void setWeightColumn(QString const&);
+        
+        /// gets user input weight column
+        uint32_t getWeightColumn() const;
+        
     private:
         Ui::MainWindow *ui;
 
@@ -53,6 +65,12 @@ namespace Arad
         
         /// delimiter between CSV line contents
         QString _csvContentsDelimiter = "";
+        
+        /// column number of height information
+        uint32_t _heightColumn = 0;
+        
+        /// column number of weight information
+        uint32_t _weightColumn = 0;
         
     private slots:
         /// this slot fill some variables with input lines (in lineEdit sections)
