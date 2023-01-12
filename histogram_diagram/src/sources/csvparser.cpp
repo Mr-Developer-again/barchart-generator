@@ -4,7 +4,7 @@
 #include <algorithm>
 
 template<typename T>
-bool Arad::csvParser::in(T const& item, std::vector<T> const& container)
+bool Arad::csvParser::in(T const& item, QVector<T> const& container)
 {
     return (std::find(container.begin(), container.end(), item) == container.end()) ? false : true;
 }
@@ -27,8 +27,8 @@ std::vector<std::string> Arad::csvParser::split(std::string const& string, std::
     return result;
 }
 
-std::vector<float> Arad::csvParser::Extracter(QString const& filePath, QString const& delimiter,
-                                                    std::vector<uint32_t> const& spamLines, int columnNumber)
+QVector<float> Arad::csvParser::Extracter(QString const& filePath, QString const& delimiter,
+                                                    QVector<uint32_t> const& spamLines, int columnNumber)
 {
 	--columnNumber;
 
@@ -37,7 +37,7 @@ std::vector<float> Arad::csvParser::Extracter(QString const& filePath, QString c
 		throw std::invalid_argument("couldn't open the file");
 
 	std::vector<std::string> splitedLine;
-	std::vector<float> result;
+	QVector<float> result;
 	std::string readLine = "";
 	uint32_t lineCounter = 0;
 

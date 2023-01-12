@@ -4,6 +4,7 @@
 #include <vector>
 
 #include <QTextStream>
+#include <QVector>
 
 namespace Arad
 {
@@ -20,13 +21,13 @@ namespace Arad
         ///         spamLines -> the lines that aren't information to extract and have been written
         ///                      only for human-readablity reasons
         ///         columnNumber -> do you want to extract contents of which column? (a number from 0)
-        std::vector<float> Extracter(QString const& filePath, QString const& delimiter,
-                                                            std::vector<uint32_t> const& spamLines, int columnNumber);
+        QVector<float> Extracter(QString const& filePath, QString const& delimiter,
+                                                            QVector<uint32_t> const& spamLines, int columnNumber);
         
         /// this function checks whether the given item exists inside the container(vector) or not
         template<typename T>
-        bool in(T const& item, std::vector<T> const& container);
-    
+        bool in(T const& item, QVector<T> const& container);
+
     } // csvParser namespace
 
 } // Arad namespace
