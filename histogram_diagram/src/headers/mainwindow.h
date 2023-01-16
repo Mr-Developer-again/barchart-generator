@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <../include/qcustomplot.h>
+#include <headers/csvparser.h>
+#include <headers/scoping.h>
 
 #include <vector>
 
@@ -9,6 +11,8 @@
 #include <QTextStream>
 #include <QPushButton>
 #include <QLabel>
+
+#define SPAM_LINES_DELIMITER "-"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,7 +27,8 @@ namespace Arad
         Q_OBJECT
 
     public:
-        MainWindow(QWidget *parent = nullptr);
+        explicit MainWindow(QWidget *parent = nullptr);
+        MainWindow() = default;
         virtual ~MainWindow();
 
         /// sets range of scopes in histogram diagram
@@ -56,8 +61,14 @@ namespace Arad
         /// gets user input weight column
         uint32_t getWeightColumn() const;
         
+        /// sets user input spam lines
+        void setSpamLines(QString const&);
+        
+        /// gets user input spam lines
+        QVector<uint32_t> getSpamLines() const;
+        
     private:
-        Ui::MainWindow *ui;
+        Ui::MainWindow *_ui;
 
         /// range of scopes in histogram diagram
         uint32_t _range = 0;
@@ -74,6 +85,9 @@ namespace Arad
         /// column number of weight information
         uint32_t _weightColumn = 0;
         
+        /// spam lines string
+        QVector<uint32_t> _spamLines;
+        
         /// after user enters initial information, two pushButtons must be
         /// shown for selecting "Height" or "Weight" (for creating table and
         /// printing diagram for that object)
@@ -83,14 +97,14 @@ namespace Arad
         /// one label for two QPushButton above
         QLabel *_heightWeightLabel = nullptr;
         
-        /// the following nested vector will store ranged information
-//        QVector<QVector<float>> _
+        /// defining an object for Arad::Scoping::ScopingCls class
+        Arad::Scoping::ScopingCls *_scoper = nullptr;
         
     private slots:
         /// this slot fill some variables with input lines (in lineEdit sections)
         void slotGettingInputInformation();
     };
-    
+
 } // Arad namespace
 
 

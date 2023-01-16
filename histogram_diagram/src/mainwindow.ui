@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>756</width>
-    <height>470</height>
+    <height>487</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -142,6 +142,42 @@
      <string>Weight Column:</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>310</y>
+      <width>371</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Enter Spam Lines (the lines that are not information) :</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>330</y>
+      <width>251</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>(seperate them by dash(-), e.g. 1-2-3)</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_spamLines">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>350</y>
+      <width>121</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
  </widget>
  <tabstops>
@@ -150,6 +186,7 @@
   <tabstop>lineEdit_heightColumn</tabstop>
   <tabstop>lineEdit_weightColumn</tabstop>
   <tabstop>lineEdit_range</tabstop>
+  <tabstop>lineEdit_spamLines</tabstop>
   <tabstop>pushButton</tabstop>
  </tabstops>
  <resources/>

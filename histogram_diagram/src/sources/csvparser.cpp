@@ -4,13 +4,13 @@
 #include <algorithm>
 
 template<typename T>
-bool Arad::csvParser::in(T const& item, QVector<T> const& container)
+bool Arad::CsvParser::in(T const& item, QVector<T> const& container)
 {
     return (std::find(container.begin(), container.end(), item) == container.end()) ? false : true;
 }
 
 /// for string delimiter
-std::vector<std::string> Arad::csvParser::split(std::string const& string, std::string const& delimiter)
+std::vector<std::string> Arad::CsvParser::split(std::string const& string, std::string const& delimiter)
 {    
     size_t pos_start = 0, pos_end, delim_len = delimiter.length();
     std::string token;
@@ -27,7 +27,7 @@ std::vector<std::string> Arad::csvParser::split(std::string const& string, std::
     return result;
 }
 
-QVector<float> Arad::csvParser::Extracter(QString const& filePath, QString const& delimiter,
+QVector<float> Arad::CsvParser::extracter(QString const& filePath, QString const& delimiter,
                                                     QVector<uint32_t> const& spamLines, int columnNumber)
 {
 	--columnNumber;
