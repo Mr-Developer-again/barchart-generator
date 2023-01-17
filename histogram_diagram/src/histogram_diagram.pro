@@ -13,15 +13,17 @@ SOURCES += \
     "sources/mainwindow.cpp" \
 	"../include/qcustomplot.cpp" \
     "sources/csvparser.cpp" \
-    "sources/heightTableView.cpp" \
-    "sources/scoping.cpp"
+    "sources/heighttablewidget.cpp" \
+    "sources/scoping.cpp" \
+    "sources/tablewidget.cpp"
 
 HEADERS += \
     "headers/mainwindow.h" \
 	"../include/qcustomplot.h" \
 	"headers/csvparser.h" \
-    "headers/heightTableView.h" \
-    "headers/scoping.h"
+    "headers/heighttablewidget.h" \
+    "headers/scoping.h" \
+    "headers/tablewidget.h"
 
 FORMS += \
     "./mainwindow.ui"

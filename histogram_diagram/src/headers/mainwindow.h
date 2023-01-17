@@ -4,6 +4,7 @@
 #include <../include/qcustomplot.h>
 #include <headers/csvparser.h>
 #include <headers/scoping.h>
+#include <headers/heighttablewidget.h>
 
 #include <vector>
 
@@ -41,13 +42,13 @@ namespace Arad
         void setPath(QString const&);
         
         /// gets user input path
-        QString getPath() const;
+        QString const& getPath() const;
         
         /// sets user input delimiter
         void setDelimiter(QString const&);
         
         /// gets user input delimiter
-        QString getDelimiter() const;
+        QString const& getDelimiter() const;
         
         /// sets user input height column
         void setHeightColumn(QString const&);
@@ -65,7 +66,7 @@ namespace Arad
         void setSpamLines(QString const&);
         
         /// gets user input spam lines
-        QVector<uint32_t> getSpamLines() const;
+        QVector<uint32_t> const& getSpamLines() const;
         
     private:
         Ui::MainWindow *_ui;
@@ -81,28 +82,24 @@ namespace Arad
         
         /// column number of height information
         uint32_t _heightColumn = 0;
-        
+
         /// column number of weight information
         uint32_t _weightColumn = 0;
         
         /// spam lines string
         QVector<uint32_t> _spamLines;
         
-        /// after user enters initial information, two pushButtons must be
-        /// shown for selecting "Height" or "Weight" (for creating table and
-        /// printing diagram for that object)
-        QPushButton *_heightPushButton = nullptr;
-        QPushButton *_weightPushButton = nullptr;
-        
-        /// one label for two QPushButton above
-        QLabel *_heightWeightLabel = nullptr;
-        
         /// defining an object for Arad::Scoping::ScopingCls class
         Arad::Scoping::ScopingCls *_scoper = nullptr;
-        
+
+        /// defining an object pointer for Arad::TableDrawing::HeightTableWidget
+        Arad::TableDrawing::HeightTableWidget *_heightTableDrawer = nullptr;
     private slots:
         /// this slot fill some variables with input lines (in lineEdit sections)
         void slotGettingInputInformation();
+        
+        /// this slot is used for responding to clicking _ui->pushButton_height and _ui->pushButton_weight
+        void slotPushingHeightWeightButtons();
     };
 
 } // Arad namespace

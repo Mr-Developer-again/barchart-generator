@@ -13,18 +13,34 @@
 
 #include <QFont>
 
+/////////// TESTING ////////////
+#include <QTextStream>
+//////////// END OF TESTING ///////////
+
 Arad::MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
-      _ui(new Ui::MainWindow),
-      _scoper(new Arad::Scoping::ScopingCls)
+      _ui(new Ui::MainWindow)
 {
     _ui->setupUi(this);
     
     /// configuring pushButton
     _ui->pushButton->setText("Send All Information");
+    
+    /// configuring pushButton_height
+    _ui->pushButton_height->setText("Height");
+    _ui->pushButton_height->hide();
+    
+    /// configuring pushButton_weight
+    _ui->pushButton_weight->setText("Weight");
+    _ui->pushButton_weight->hide();
+    
+    /// configuring label_selectHeightOrWeight (for selecting height/weight pushButtons)
+    _ui->label_selectHeightOrWeight->hide();
 
     /// connecting signals and slots
     QObject::connect(_ui->pushButton, SIGNAL(clicked()), this, SLOT(slotGettingInputInformation()));
+    QObject::connect(_ui->pushButton_height, SIGNAL(clicked()), this, SLOT(slotPushingHeightWeightButtons()));
+    QObject::connect(_ui->pushButton_weight, SIGNAL(clicked()), this, SLOT(slotPushingHeightWeightButtons()));
 }
 
 void Arad::MainWindow::setRange(QString const& range)
@@ -40,7 +56,7 @@ void Arad::MainWindow::setPath(QString const& inputPath)
     this->_csvFilePath = (inputPath.size() > 0) ? inputPath : throw std::invalid_argument("you forgot to fill in the \"file path\" section");
 }
 
-QString Arad::MainWindow::getPath() const
+QString const& Arad::MainWindow::getPath() const
 { return this->_csvFilePath; }
 
 void Arad::MainWindow::setDelimiter(QString const& delimiter)
@@ -48,7 +64,7 @@ void Arad::MainWindow::setDelimiter(QString const& delimiter)
     this->_csvContentsDelimiter = (delimiter.size() > 0) ? delimiter : throw std::invalid_argument("you forgot to fill in the \"delimiter\" section");
 }
 
-QString Arad::MainWindow::getDelimiter() const
+QString const& Arad::MainWindow::getDelimiter() const
 { return this->_csvContentsDelimiter; }
 
 void Arad::MainWindow::setHeightColumn(QString const& heightColumn)
@@ -83,43 +99,84 @@ void Arad::MainWindow::setSpamLines(QString const& spamLines)
     this->_spamLines.shrink_to_fit();
 }
 
-QVector<uint32_t> Arad::MainWindow::getSpamLines() const
+QVector<uint32_t> const& Arad::MainWindow::getSpamLines() const
 { return this->_spamLines; }
 
 void Arad::MainWindow::slotGettingInputInformation()
 {
     Arad::MainWindow::setPath(_ui->lineEdit_filePath->text());
+    _ui->lineEdit_filePath->setEnabled(false);
+    
     Arad::MainWindow::setDelimiter(_ui->lineEdit_delimiter->text());
+    _ui->lineEdit_delimiter->setEnabled(false);
+
     Arad::MainWindow::setHeightColumn(_ui->lineEdit_heightColumn->text());
+    _ui->lineEdit_heightColumn->setEnabled(false);
+
     Arad::MainWindow::setWeightColumn(_ui->lineEdit_weightColumn->text());
+    _ui->lineEdit_weightColumn->setEnabled(false);
+
     Arad::MainWindow::setRange(_ui->lineEdit_range->text());
+    _ui->lineEdit_range->setEnabled(false);
+
     Arad::MainWindow::setSpamLines(_ui->lineEdit_spamLines->text());
+    _ui->lineEdit_spamLines->setEnabled(false);
 
     QFont pushButtonFont("Consolas", -1, 50, true);
     _ui->pushButton->setFont(pushButtonFont);
     _ui->pushButton->setText("OK");
+    _ui->pushButton->setEnabled(false); /// disabling the pushButton (after getting user input information) 
+    
+    /// showing _ui->pushButton_height and _ui->pushButton_weight and the related label
+    _ui->label_selectHeightOrWeight->show();
+    _ui->pushButton_height->show();
+    _ui->pushButton_weight->show();
+}
 
-    /// configuring this->heightWeightLabel
-    this->_heightWeightLabel = new QLabel(this);
-    this->_heightWeightLabel->setGeometry(300, 370, 151, 17);
-    this->_heightWeightLabel->setText("Select one of these:");
-    this->_heightWeightLabel->show();
+void Arad::MainWindow::slotPushingHeightWeightButtons()
+{
+    QObject *pushedButton = QObject::sender();
+    
+    if (pushedButton == _ui->pushButton_height)
+    {
+        _ui->pushButton_height->setText("Height (Selected)");
+        _ui->pushButton_weight->setText("Weight (Not-Selected)");
+        _ui->pushButton_height->setEnabled(false);
+        _ui->pushButton_weight->setEnabled(false);
+        
+        this->_scoper = new Arad::Scoping::ScopingCls(
+                    Arad::MainWindow::getPath(),
+                    Arad::MainWindow::getDelimiter(),
+                    Arad::MainWindow::getSpamLines(),
+                    Arad::MainWindow::getHeightColumn(),
+                    Arad::MainWindow::getRange()
+        );
 
-    /// configuring this->_heightPushButton
-    this->_heightPushButton = new QPushButton("Height", this);
-    this->_heightPushButton->setGeometry(300, 400, 151, 25);
-    this->_heightPushButton->show();
-
-    /// configuraing this->_weightPushButton
-    this->_weightPushButton = new QPushButton("Weight", this);
-    this->_weightPushButton->setGeometry(300, 430, 151, 25);
-    this->_weightPushButton->show();
+        this->_heightTableDrawer = new Arad::TableDrawing::HeightTableWidget(this->_scoper);
+        this->_heightTableDrawer->draw();
+    }
+    else if (pushedButton == _ui->pushButton_weight)
+    {
+        _ui->pushButton_height->setText("Height (Not-Selected)");
+        _ui->pushButton_weight->setText("Weight (Selected)");
+        _ui->pushButton_height->setEnabled(false);
+        _ui->pushButton_weight->setEnabled(false);
+        
+        this->_scoper = new Arad::Scoping::ScopingCls(
+                    Arad::MainWindow::getPath(),
+                    Arad::MainWindow::getDelimiter(),
+                    Arad::MainWindow::getSpamLines(),
+                    Arad::MainWindow::getWeightColumn(),
+                    Arad::MainWindow::getRange()
+        );
+        
+//        this->_heightTableDrawer = new Arad::TableDrawing::HeightTableWidget(this->_scoper);
+    }
 }
 
 Arad::MainWindow::~MainWindow()
 {
     delete _ui;
-    delete this->_heightPushButton;
-    delete this->_weightPushButton;
-    delete this->_heightWeightLabel;
+    delete this->_scoper;
+    delete this->_heightTableDrawer;
 }

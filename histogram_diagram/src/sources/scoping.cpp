@@ -2,7 +2,7 @@
 
 #include <headers/csvparser.h>
 
-void Arad::Scoping::ScopingCls::start(QString const& filePath, QString const& delimiter,
+Arad::Scoping::ScopingCls::ScopingCls(QString const& filePath, QString const& delimiter,
                                       QVector<uint32_t> const& spamLines, int columnNumber, uint32_t range)
 { 
     /// this vector stores the returned vector by Arad::CsvParser::extracter
@@ -31,3 +31,9 @@ void Arad::Scoping::ScopingCls::start(QString const& filePath, QString const& de
     
     this->_rangedVector.shrink_to_fit();
 }
+
+QVector<QVector<float>> const& Arad::Scoping::ScopingCls::getRangedVector() const
+{ return this->_rangedVector; }
+
+QMap<uint32_t, QString> const& Arad::Scoping::ScopingCls::getMap() const
+{ return this->_mapper; }
