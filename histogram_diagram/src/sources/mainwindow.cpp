@@ -1,6 +1,8 @@
 #include <headers/mainwindow.h>
 #include <ui_mainwindow.h>
 #include <headers/scoping.h>
+#include <headers/heighttablewidget.h>
+#include <headers/weighttablewidget.h>
 
 #include <../include/qcustomplot.h>
 
@@ -102,6 +104,19 @@ void Arad::MainWindow::setSpamLines(QString const& spamLines)
 QVector<uint32_t> const& Arad::MainWindow::getSpamLines() const
 { return this->_spamLines; }
 
+Arad::TableDrawing::TableWidget* Arad::MainWindow::createTableDrawer(QString const& type, Arad::Scoping::ScopingCls* scoper) const
+{
+    Arad::TableDrawing::TableWidget* tableDrawer = nullptr;
+    
+    QString loweredType = type.toLower();
+    if (loweredType == "height")
+        tableDrawer = new Arad::TableDrawing::HeightTableWidget(scoper);
+    else if (loweredType == "weight")
+        tableDrawer = new Arad::TableDrawing::WeightTableWidget(scoper);
+    
+    return tableDrawer;
+}
+
 void Arad::MainWindow::slotGettingInputInformation()
 {
     Arad::MainWindow::setPath(_ui->lineEdit_filePath->text());
@@ -152,8 +167,8 @@ void Arad::MainWindow::slotPushingHeightWeightButtons()
                     Arad::MainWindow::getRange()
         );
 
-        this->_heightTableDrawer = new Arad::TableDrawing::HeightTableWidget(this->_scoper);
-        this->_heightTableDrawer->draw();
+        this->_tableDrawing = Arad::MainWindow::createTableDrawer("height", this->_scoper);
+        this->_tableDrawing->draw();
     }
     else if (pushedButton == _ui->pushButton_weight)
     {
@@ -170,7 +185,8 @@ void Arad::MainWindow::slotPushingHeightWeightButtons()
                     Arad::MainWindow::getRange()
         );
         
-//        this->_heightTableDrawer = new Arad::TableDrawing::HeightTableWidget(this->_scoper);
+        this->_tableDrawing = Arad::MainWindow::createTableDrawer("weight", this->_scoper);
+        this->_tableDrawing->draw();
     }
 }
 
@@ -178,5 +194,5 @@ Arad::MainWindow::~MainWindow()
 {
     delete _ui;
     delete this->_scoper;
-    delete this->_heightTableDrawer;
+    delete this->_tableDrawing;
 }

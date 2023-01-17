@@ -4,6 +4,7 @@
 #include <QTextStream>
 #include <QVector>
 #include <QMap>
+#include <QList>
 
 namespace Arad
 {
@@ -21,8 +22,12 @@ namespace Arad
             virtual ~ScopingCls() = default;
 
             QVector<QVector<float>> const& getRangedVector() const;
+            
+            void setMap(QMap<uint32_t, QString> const&);
             QMap<uint32_t, QString> const& getMap() const;
-//            QList<QString> const& getLabelList() const;
+            
+            void setLabelList(QList<QString> const& labelList);
+            QList<QString> const& getLabelList() const;
     
         private:        
             /// the following nested vector will store ranged information
@@ -34,8 +39,9 @@ namespace Arad
             /// (e.g. index: 1, related text: 64-73 (this text shows the range))
             QMap<uint32_t, QString> _mapper;
             
-            /// this variable stores 
-//            QList<QString> _labelList;
+            /// this variable list stores range string (like _mapper but only stores
+            /// range string and doesn't stores any index for the range string)
+            QList<QString> _labelList;
         };
     
     } // Scoping namespace

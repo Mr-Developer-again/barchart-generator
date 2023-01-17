@@ -4,7 +4,7 @@
 #include <../include/qcustomplot.h>
 #include <headers/csvparser.h>
 #include <headers/scoping.h>
-#include <headers/heighttablewidget.h>
+#include <headers/tablewidget.h>
 
 #include <vector>
 
@@ -92,8 +92,12 @@ namespace Arad
         /// defining an object for Arad::Scoping::ScopingCls class
         Arad::Scoping::ScopingCls *_scoper = nullptr;
 
-        /// defining an object pointer for Arad::TableDrawing::HeightTableWidget
-        Arad::TableDrawing::HeightTableWidget *_heightTableDrawer = nullptr;
+        /// defining an polymorphic object pointer
+        Arad::TableDrawing::TableWidget *_tableDrawing = nullptr;
+        
+        /// creating a method for controling creating object
+        Arad::TableDrawing::TableWidget* createTableDrawer(QString const& type, Arad::Scoping::ScopingCls* scoper) const;
+        
     private slots:
         /// this slot fill some variables with input lines (in lineEdit sections)
         void slotGettingInputInformation();

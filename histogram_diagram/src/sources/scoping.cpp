@@ -12,6 +12,11 @@ Arad::Scoping::ScopingCls::ScopingCls(QString const& filePath, QString const& de
     int startRange = startData;
     int stopRange = startRange + range;
     QVector<float> temporaryVector;
+    QList<QString> tempList;
+    QMap<uint32_t, QString> tempMap;
+    
+    QString startRangeStr = "";
+    QString stopRangeStr = "";
     
     for (uint32_t i = 0; startRange < stopData; ++i)
     {
@@ -24,16 +29,33 @@ Arad::Scoping::ScopingCls::ScopingCls(QString const& filePath, QString const& de
         temporaryVector.shrink_to_fit();
         this->_rangedVector.push_back(temporaryVector);
         temporaryVector.clear();
-        
-        this->_mapper.insert(i, static_cast<QString>(startRange) + "-" + static_cast<QString>(stopRange));
-        startRange = stopRange + 1; stopRange = startRange + range; 
+
+        startRangeStr = startRangeStr.setNum(startRange);
+        stopRangeStr = stopRangeStr.setNum(stopRange);
+        tempMap.insert(i, "[" + startRangeStr + ", " + stopRangeStr + "]");
+        tempList.push_back("[" + startRangeStr + ", " + stopRangeStr + "]");
+        startRange = stopRange + 1;
+        stopRange = startRange + range;
     }
     
+    Arad::Scoping::ScopingCls::setLabelList(tempList);
+    Arad::Scoping::ScopingCls::setMap(tempMap);
     this->_rangedVector.shrink_to_fit();
 }
 
+void Arad::Scoping::ScopingCls::setLabelList(QList<QString> const& labelList)
+{
+    this->_labelList = labelList;
+}
+
+QList<QString> const& Arad::Scoping::ScopingCls::getLabelList() const
+{ return this->_labelList; }
+
 QVector<QVector<float>> const& Arad::Scoping::ScopingCls::getRangedVector() const
 { return this->_rangedVector; }
+
+void Arad::Scoping::ScopingCls::setMap(QMap<uint32_t, QString> const& map)
+{ this->_mapper = map; }
 
 QMap<uint32_t, QString> const& Arad::Scoping::ScopingCls::getMap() const
 { return this->_mapper; }

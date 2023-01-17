@@ -15,7 +15,8 @@ SOURCES += \
     "sources/csvparser.cpp" \
     "sources/heighttablewidget.cpp" \
     "sources/scoping.cpp" \
-    "sources/tablewidget.cpp"
+    "sources/tablewidget.cpp" \
+    sources/weigthtablewidget.cpp
 
 HEADERS += \
     "headers/mainwindow.h" \
@@ -23,7 +24,8 @@ HEADERS += \
 	"headers/csvparser.h" \
     "headers/heighttablewidget.h" \
     "headers/scoping.h" \
-    "headers/tablewidget.h"
+    "headers/tablewidget.h" \
+    headers/weighttablewidget.h
 
 FORMS += \
     "./mainwindow.ui"

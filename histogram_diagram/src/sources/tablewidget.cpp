@@ -21,7 +21,7 @@ QList<QString> const& Arad::TableDrawing::TableWidget::getColumnLabels() const
 void Arad::TableDrawing::TableWidget::draw()
 {    
     QVector<QVector<float>> tempRangedVector = this->_scopingObj->getRangedVector();
-    Arad::TableDrawing::TableWidget::setRowLabels(this->_scopingObj->getMap().values());
+    Arad::TableDrawing::TableWidget::setRowLabels(this->_scopingObj->getLabelList());
     Arad::TableDrawing::TableWidget::setColumnLabels(QList<QString>({"Count"}));
     
     uint32_t const numberOfRows = tempRangedVector.size();
@@ -32,12 +32,13 @@ void Arad::TableDrawing::TableWidget::draw()
     this->_tableWidget->setVerticalHeaderLabels(Arad::TableDrawing::TableWidget::getRowLabels());
     this->_tableWidget->setHorizontalHeaderLabels(Arad::TableDrawing::TableWidget::getColumnLabels());
     
+    QString tempStr = "";
     for (uint32_t i = 0; i < numberOfRows; ++i)
     {
-        QTableWidgetItem *item = new QTableWidgetItem;
-        item->setText(static_cast<QString>(tempRangedVector[i].size()));
-        this->_tableWidget->setItem(i, 1, item);
-        delete item;
+        tempStr = tempStr.setNum(tempRangedVector[i].size());
+        QTableWidgetItem* item = new QTableWidgetItem();
+        item->setText(tempStr);
+        this->_tableWidget->setItem(i, 0, item);
     }
     
     this->_tableWidget->show();
