@@ -16,7 +16,8 @@ SOURCES += \
     "sources/heighttablewidget.cpp" \
     "sources/scoping.cpp" \
     "sources/tablewidget.cpp" \
-    sources/weigthtablewidget.cpp
+    "sources/diagram.cpp" \
+    "sources/weigthtablewidget.cpp"
 
 HEADERS += \
     "headers/mainwindow.h" \
@@ -25,10 +26,12 @@ HEADERS += \
     "headers/heighttablewidget.h" \
     "headers/scoping.h" \
     "headers/tablewidget.h" \
-    headers/weighttablewidget.h
+    "headers/diagram.h" \
+    "headers/weighttablewidget.h"
 
 FORMS += \
-    "./mainwindow.ui"
+    "./mainwindow.ui" \
+    "./diagram.ui"
 
 TRANSLATIONS += \
     histogram_diagram_en_US.ts

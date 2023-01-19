@@ -5,6 +5,7 @@
 #include <headers/csvparser.h>
 #include <headers/scoping.h>
 #include <headers/tablewidget.h>
+#include <headers/diagram.h>
 
 #include <vector>
 
@@ -97,6 +98,9 @@ namespace Arad
         
         /// creating a method for controling creating object
         Arad::TableDrawing::TableWidget* createTableDrawer(QString const& type, Arad::Scoping::ScopingCls* scoper) const;
+        
+        /// creating an polymorphic object pointer for Arad::DiagramDrawing::Diagram
+        Arad::DiagramDrawing::Diagram *_diagram = nullptr;
         
     private slots:
         /// this slot fill some variables with input lines (in lineEdit sections)

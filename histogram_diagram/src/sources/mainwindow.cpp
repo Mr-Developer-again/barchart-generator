@@ -28,7 +28,7 @@ Arad::MainWindow::MainWindow(QWidget *parent)
     /// configuring pushButton_height
     _ui->pushButton_height->setText("Height");
     _ui->pushButton_height->hide();
-    
+
     /// configuring pushButton_weight
     _ui->pushButton_weight->setText("Weight");
     _ui->pushButton_weight->hide();
@@ -166,6 +166,11 @@ void Arad::MainWindow::slotPushingHeightWeightButtons()
 
         this->_tableDrawing = Arad::MainWindow::createTableDrawer("height", this->_scoper);
         this->_tableDrawing->draw();
+        
+        ////////////// TESTING ///////////////////
+        this->_diagram = new Arad::DiagramDrawing::Diagram;
+        this->_diagram->show();
+        /////////////// END OF TESTING //////////////
     }
     else if (pushedButton == _ui->pushButton_weight)
     {
