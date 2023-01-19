@@ -3,7 +3,7 @@
 #include <headers/scoping.h>
 #include <headers/heighttablewidget.h>
 #include <headers/weighttablewidget.h>
-#include <../include/qcustomplot.h>
+#include <headers/histogramdiagram.h>
 
 #include <../include/qcustomplot.h>
 
@@ -21,6 +21,9 @@ Arad::MainWindow::MainWindow(QWidget *parent)
       _ui(new Ui::MainWindow)
 {
     _ui->setupUi(this);
+    
+    /// configuring MainWindow
+    this->setFixedSize(this->geometry().width(), this->geometry().height()); /// fixing size of the form
     
     /// configuring pushButton
     _ui->pushButton->setText("Send All Information");
@@ -168,7 +171,8 @@ void Arad::MainWindow::slotPushingHeightWeightButtons()
         this->_tableDrawing->draw();
         
         ////////////// TESTING ///////////////////
-        this->_diagram = new Arad::DiagramDrawing::Diagram;
+        this->_diagram = new Arad::DiagramDrawing::HistogramDiagram;
+        this->_diagram->drawDiagram();
         this->_diagram->show();
         /////////////// END OF TESTING //////////////
     }

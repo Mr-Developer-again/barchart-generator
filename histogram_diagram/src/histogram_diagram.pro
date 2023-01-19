@@ -17,7 +17,8 @@ SOURCES += \
     "sources/scoping.cpp" \
     "sources/tablewidget.cpp" \
     "sources/diagram.cpp" \
-    "sources/weigthtablewidget.cpp"
+    "sources/weigthtablewidget.cpp" \
+    "sources/histogramdiagram.cpp"
 
 HEADERS += \
     "headers/mainwindow.h" \
@@ -27,7 +28,8 @@ HEADERS += \
     "headers/scoping.h" \
     "headers/tablewidget.h" \
     "headers/diagram.h" \
-    "headers/weighttablewidget.h"
+    "headers/weighttablewidget.h" \
+    "headers/histogramdiagram.h"
 
 FORMS += \
     "./mainwindow.ui" \

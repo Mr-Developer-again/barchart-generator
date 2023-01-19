@@ -1,6 +1,8 @@
 #ifndef ARAD_DIAGRAMDRAWING_DIAGRAM_DIAGRAM_H
 #define ARAD_DIAGRAMDRAWING_DIAGRAM_DIAGRAM_H
 
+#include <../include/qcustomplot.h>
+
 #include <QDialog>
 
 namespace Ui
@@ -20,9 +22,11 @@ namespace Arad
             
         public:
             explicit Diagram(QWidget *parent = nullptr);
-            ~Diagram();
+            virtual ~Diagram();
             
-        private:
+            virtual void drawDiagram() = 0;
+            
+        protected:
             Ui::Diagram *_ui;
         };
         
