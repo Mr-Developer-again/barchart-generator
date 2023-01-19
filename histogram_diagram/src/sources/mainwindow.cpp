@@ -3,6 +3,7 @@
 #include <headers/scoping.h>
 #include <headers/heighttablewidget.h>
 #include <headers/weighttablewidget.h>
+#include <../include/qcustomplot.h>
 
 #include <../include/qcustomplot.h>
 
@@ -14,10 +15,6 @@
 #include <algorithm>
 
 #include <QFont>
-
-/////////// TESTING ////////////
-#include <QTextStream>
-//////////// END OF TESTING ///////////
 
 Arad::MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
