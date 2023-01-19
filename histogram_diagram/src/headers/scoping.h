@@ -23,8 +23,8 @@ namespace Arad
 
             QVector<QVector<float>> const& getRangedVector() const;
             
-            void setMap(QMap<uint32_t, QString> const&);
-            QMap<uint32_t, QString> const& getMap() const;
+            void setMap(QMap<double, QString> const&);
+            QMap<double, QString> const& getMap() const;
             
             void setLabelList(QList<QString> const& labelList);
             QList<QString> const& getLabelList() const;
@@ -37,7 +37,7 @@ namespace Arad
             /// the following map stores index number of the _rangedVector
             /// and the related text to it 
             /// (e.g. index: 1, related text: 64-73 (this text shows the range))
-            QMap<uint32_t, QString> _mapper;
+            QMap<double, QString> _mapper;
             
             /// this variable list stores range string (like _mapper but only stores
             /// range string and doesn't stores any index for the range string)

@@ -171,7 +171,7 @@ void Arad::MainWindow::slotPushingHeightWeightButtons()
         this->_tableDrawing->draw();
         
         ////////////// TESTING ///////////////////
-        this->_diagram = new Arad::DiagramDrawing::HistogramDiagram;
+        this->_diagram = new Arad::DiagramDrawing::HistogramDiagram(this->_scoper);
         this->_diagram->drawDiagram();
         this->_diagram->show();
         /////////////// END OF TESTING //////////////
