@@ -1,6 +1,8 @@
 #ifndef ARAD_DIAGRAMDRAWING_DIAGRAM_DIAGRAM_H
 #define ARAD_DIAGRAMDRAWING_DIAGRAM_DIAGRAM_H
 
+#include <headers/scoping.h>
+
 #include <../include/qcustomplot.h>
 
 #include <QDialog>

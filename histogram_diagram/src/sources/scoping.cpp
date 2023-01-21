@@ -1,5 +1,4 @@
 #include <headers/scoping.h>
-
 #include <headers/csvparser.h>
 
 Arad::Scoping::ScopingCls::ScopingCls(QString const& filePath, QString const& delimiter,
@@ -13,7 +12,6 @@ Arad::Scoping::ScopingCls::ScopingCls(QString const& filePath, QString const& de
     int stopRange = startRange + range;
     QVector<float> temporaryVector;
     QList<QString> tempList;
-    QMap<double, QString> tempMap;
     
     QString startRangeStr = "";
     QString stopRangeStr = "";
@@ -32,14 +30,12 @@ Arad::Scoping::ScopingCls::ScopingCls(QString const& filePath, QString const& de
 
         startRangeStr = startRangeStr.setNum(startRange);
         stopRangeStr = stopRangeStr.setNum(stopRange);
-        tempMap.insert(static_cast<double>(i) + 1, "[" + startRangeStr + ", " + stopRangeStr + "]");
         tempList.push_back("[" + startRangeStr + ", " + stopRangeStr + "]");
         startRange = stopRange + 1;
         stopRange = startRange + range;
     }
     
     Arad::Scoping::ScopingCls::setLabelList(tempList);
-    Arad::Scoping::ScopingCls::setMap(tempMap);
     this->_rangedVector.shrink_to_fit();
 }
 
@@ -53,9 +49,3 @@ QList<QString> const& Arad::Scoping::ScopingCls::getLabelList() const
 
 QVector<QVector<float>> const& Arad::Scoping::ScopingCls::getRangedVector() const
 { return this->_rangedVector; }
-
-void Arad::Scoping::ScopingCls::setMap(QMap<double, QString> const& map)
-{ this->_mapper = map; }
-
-QMap<double, QString> const& Arad::Scoping::ScopingCls::getMap() const
-{ return this->_mapper; }

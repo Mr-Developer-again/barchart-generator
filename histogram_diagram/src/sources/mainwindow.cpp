@@ -170,11 +170,9 @@ void Arad::MainWindow::slotPushingHeightWeightButtons()
         this->_tableDrawing = Arad::MainWindow::createTableDrawer("height", this->_scoper);
         this->_tableDrawing->draw();
         
-        ////////////// TESTING ///////////////////
         this->_diagram = new Arad::DiagramDrawing::HistogramDiagram(this->_scoper);
         this->_diagram->drawDiagram();
         this->_diagram->show();
-        /////////////// END OF TESTING //////////////
     }
     else if (pushedButton == _ui->pushButton_weight)
     {
@@ -193,6 +191,10 @@ void Arad::MainWindow::slotPushingHeightWeightButtons()
         
         this->_tableDrawing = Arad::MainWindow::createTableDrawer("weight", this->_scoper);
         this->_tableDrawing->draw();
+        
+        this->_diagram = new Arad::DiagramDrawing::HistogramDiagram(this->_scoper);
+        this->_diagram->drawDiagram();
+        this->_diagram->show();
     }
 }
 

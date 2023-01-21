@@ -12,3 +12,4 @@ Arad::DiagramDrawing::Diagram::~Diagram()
 {
     delete _ui;
 }
+

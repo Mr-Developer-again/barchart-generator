@@ -16,6 +16,7 @@ namespace Arad
         {
         public:
             explicit HistogramDiagram(Arad::Scoping::ScopingCls *scoper, QWidget* parent = nullptr);
+            virtual ~HistogramDiagram();
 
             void drawDiagram() override;
             
