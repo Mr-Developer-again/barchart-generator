@@ -81,7 +81,7 @@ QVector<float> Arad::CsvParser::CsvParserCls::extracter(int columnNumber)
 
         if (!in(lineCounter, this->_spamLines))
 		{
-            splitedLine = split(readLine);
+            splitedLine = Arad::CsvParser::CsvParserCls::split(readLine);
 
 			/// evaluating columnNumber
 			if (static_cast<int>(splitedLine.size()) < (columnNumber + 1))

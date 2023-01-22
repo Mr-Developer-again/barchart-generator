@@ -20,7 +20,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLineEdit" name="lineEdit_range">
+   <widget class="QLineEdit" name="lineEdit_numberOfColumns">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -30,7 +30,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label_range">
+   <widget class="QLabel" name="label_numberOfColumns">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -186,7 +186,7 @@
  </customwidgets>
  <tabstops>
   <tabstop>lineEdit_filePath</tabstop>
-  <tabstop>lineEdit_range</tabstop>
+  <tabstop>lineEdit_numberOfColumns</tabstop>
   <tabstop>pushButton</tabstop>
  </tabstops>
  <resources/>

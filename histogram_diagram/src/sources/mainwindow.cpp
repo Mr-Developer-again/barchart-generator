@@ -14,7 +14,7 @@
 #include <vector>
 #include <algorithm>
 
-#include <QFont>
+#include <QMessageBox>
 
 Arad::MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
@@ -35,29 +35,62 @@ Arad::MainWindow::MainWindow(QWidget *parent)
     _ui->comboBox_selectColumn->hide();
 
     /// connecting signals and slots
-    QObject::connect(_ui->pushButton, SIGNAL(clicked()), this, SLOT(slotGettingInputInformation()));
+    QObject::connect(_ui->pushButton, SIGNAL(clicked()), this, SLOT(slot_gettingInputInformation()));
+    QObject::connect(_ui->comboBox_selectColumn, SIGNAL(currentTextChanged(QString)), this, SLOT(slot_comboBoxTextChange(QString)));
+    QObject::connect(_ui->lineEdit_filePath, SIGNAL(textChanged(QString)), this, SLOT(slot_lineEditTextChanged(QString)));
+    QObject::connect(_ui->lineEdit_numberOfColumns, SIGNAL(textChanged(QString)), this, SLOT(slot_lineEditTextChanged(QString)));
+}
+
+bool Arad::MainWindow::onlyHasNumbers(QString const& input)
+{
+    for (auto const& ch : input)
+        if (!ch.isDigit())
+            return false;
+
+    return true;
 }
 
 void Arad::MainWindow::setRange(QString const& range)
 {
-    this->_range = (range.toInt() >= 1) ? range.toInt() : throw std::invalid_argument("the input range must be >= 1");
+    if (Arad::MainWindow::onlyHasNumbers(range))
+        this->_range = (range.toInt() >= 1) ? range.toInt() : throw std::invalid_argument("the input range must be >= 1");
+    else
+        throw std::invalid_argument("the range must only contains numbers");
 }
 
 uint32_t Arad::MainWindow::getRange() const
 { return this->_range; }
 
+void Arad::MainWindow::setNumberOfColumns(QString const& number)
+{
+    if (Arad::MainWindow::onlyHasNumbers(number))
+        this->_numberOfColumns = (number.toInt() >= 1) ? number.toInt() : throw std::invalid_argument("number of columns must be >= 1");
+    else
+        throw std::invalid_argument("the range must only cotains numbers");
+}
+
+uint32_t Arad::MainWindow::getNumberOfColumns() const
+{ return this->_numberOfColumns; }
+
 void Arad::MainWindow::setPath(QString const& inputPath)
 {
-    this->_csvFilePath = (inputPath.size() > 0) ? inputPath : throw std::invalid_argument("you forgot to fill in the \"file path\" section");
+    /// validating input path
+    /// validate_1
+    if (inputPath.size() == 0)
+        throw std::invalid_argument("you forgot to fill in the \"file path\" section");
+
+    /// validate_2
+    std::ifstream file(inputPath.toStdString(), std::ios::in);
+    if (!file.is_open())
+        throw std::runtime_error("couldn't open the file");
+
+    this->_csvFilePath = inputPath;
+
+    file.close();
 }
 
 QString const& Arad::MainWindow::getPath() const
 { return this->_csvFilePath; }
-
-void Arad::MainWindow::setDelimiter(QString const& delimiter)
-{
-    this->_csvContentsDelimiter = (delimiter.size() > 0) ? delimiter : throw std::invalid_argument("you forgot to fill in the \"delimiter\" section");
-}
 
 QString const& Arad::MainWindow::getDelimiter() const
 { return this->_csvContentsDelimiter; }
@@ -78,22 +111,6 @@ void Arad::MainWindow::setWeightColumn(QString const& weightColumn)
 uint32_t Arad::MainWindow::getWeightColumn() const
 { return this->_weightColumn; }
 
-void Arad::MainWindow::setSpamLines(QString const& spamLines)
-{
-    if (spamLines.size() != 0)
-    {
-        std::vector<std::string> seperatedSpamLines = this->_csvParser->split(spamLines.toStdString());
-
-        /// converting seperatedSpamLines item to uint32_t
-        for (std::string const& item : seperatedSpamLines)
-            this->_spamLines.push_back(std::stoi(item));
-    }
-    else
-        this->_spamLines.push_back(0);
-    
-    this->_spamLines.shrink_to_fit();
-}
-
 QVector<uint32_t> const& Arad::MainWindow::getSpamLines() const
 { return this->_spamLines; }
 
@@ -112,22 +129,40 @@ Arad::TableDrawing::TableWidget* Arad::MainWindow::createTableDrawer(QString con
 
 void Arad::MainWindow::slot_gettingInputInformation()
 {
-    Arad::MainWindow::setPath(_ui->lineEdit_filePath->text());
-    _ui->lineEdit_filePath->setEnabled(false);
+    QMessageBox mesgBx;
 
-    QFont pushButtonFont("Consolas", -1, 50, true);
-    _ui->pushButton->setFont(pushButtonFont);
-    _ui->pushButton->setText("Data Entered");
-    _ui->pushButton->setEnabled(false); /// disabling the pushButton (after getting user input information) 
+    try
+    {
+        Arad::MainWindow::setPath(_ui->lineEdit_filePath->text());
+        Arad::MainWindow::setNumberOfColumns(_ui->lineEdit_numberOfColumns->text());
 
-    /// showing label_selectColumn
-    _ui->label_selectColumn->show();
+        _ui->pushButton->setText("Data Entered");
+        _ui->pushButton->setEnabled(false); /// disabling the pushButton (after getting user input information)
 
-    /// showing comboBox_selectColumn
-    _ui->comboBox_selectColumn->show();
+        /// showing label_selectColumn
+        _ui->label_selectColumn->show();
+
+        /// showing comboBox_selectColumn
+        _ui->comboBox_selectColumn->show();
+    }
+    catch(std::invalid_argument const& ex)
+    {
+        mesgBx.setText(ex.what());
+        mesgBx.exec();
+    }
+    catch(std::runtime_error const& ex)
+    {
+        mesgBx.setText(ex.what());
+        mesgBx.exec();
+    }
+    catch(...)
+    {
+        mesgBx.setText("something went wrong!");
+        mesgBx.exec();
+    }
 }
 
-void Arad::MainWindow::slot_comboBoxIndexChange()
+void Arad::MainWindow::slot_comboBoxTextChange(QString const& str)
 {    
     ////////////////// FOR HEIGHT //////////////////
     this->_scoper = new Arad::Scoping::ScopingCls(
@@ -144,7 +179,7 @@ void Arad::MainWindow::slot_comboBoxIndexChange()
     this->_diagram = new Arad::DiagramDrawing::HistogramDiagram(this->_scoper);
     this->_diagram->drawDiagram();
     this->_diagram->show();
-    ///////////////////////////////////////////////
+    /////////////////////////////////////////////////
         
     ///////////////// FOR WEIGHT ////////////////////
     this->_scoper = new Arad::Scoping::ScopingCls(
@@ -162,6 +197,12 @@ void Arad::MainWindow::slot_comboBoxIndexChange()
     this->_diagram->drawDiagram();
     this->_diagram->show();
     //////////////////////////////////////////////////
+}
+
+void Arad::MainWindow::slot_lineEditTextChanged(QString const& newTxt)
+{
+    _ui->pushButton->setText("Send All Information");
+    _ui->pushButton->setEnabled(true); /// enabling the pushButton (after getting user input information)
 }
 
 Arad::MainWindow::~MainWindow()
