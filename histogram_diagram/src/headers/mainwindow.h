@@ -14,8 +14,6 @@
 #include <QPushButton>
 #include <QLabel>
 
-#define SPAM_LINES_DELIMITER "-"
-
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -90,6 +88,9 @@ namespace Arad
         /// spam lines string
         QVector<uint32_t> _spamLines;
         
+        /// defining an object for Arad::CsvParser::ScopingCls class
+        Arad::CsvParser::CsvParserCls *_csvParser = nullptr;
+
         /// defining an object for Arad::Scoping::ScopingCls class
         Arad::Scoping::ScopingCls *_scoper = nullptr;
 
@@ -104,10 +105,10 @@ namespace Arad
         
     private slots:
         /// this slot fill some variables with input lines (in lineEdit sections)
-        void slotGettingInputInformation();
+        void slot_gettingInputInformation();
         
         /// this slot is used for responding to clicking _ui->pushButton_height and _ui->pushButton_weight
-        void slotPushingHeightWeightButtons();
+        void slot_comboBoxIndexChange();
     };
 
 } // Arad namespace

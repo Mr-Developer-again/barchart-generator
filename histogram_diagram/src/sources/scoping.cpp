@@ -1,11 +1,12 @@
 #include <headers/scoping.h>
-#include <headers/csvparser.h>
 
 Arad::Scoping::ScopingCls::ScopingCls(QString const& filePath, QString const& delimiter,
                                       QVector<uint32_t> const& spamLines, int columnNumber, uint32_t range)
-{ 
+{
+    this->_csvParser = new Arad::CsvParser::CsvParserCls(filePath);
+
     /// this vector stores the returned vector by Arad::CsvParser::extracter
-    QVector<float> container = Arad::CsvParser::extracter(filePath, delimiter, spamLines, columnNumber);
+    QVector<float> container = this->_csvParser->extracter(columnNumber);
     int startData = static_cast<int>(container[0]);
     int stopData = static_cast<int>(container[container.size() - 1]) + 1;
     int startRange = startData;

@@ -28,21 +28,14 @@ Arad::MainWindow::MainWindow(QWidget *parent)
     /// configuring pushButton
     _ui->pushButton->setText("Send All Information");
     
-    /// configuring pushButton_height
-    _ui->pushButton_height->setText("Height");
-    _ui->pushButton_height->hide();
+    /// configuring label_selectColumn (for selecting height/weight pushButtons)
+    _ui->label_selectColumn->hide();
 
-    /// configuring pushButton_weight
-    _ui->pushButton_weight->setText("Weight");
-    _ui->pushButton_weight->hide();
-    
-    /// configuring label_selectHeightOrWeight (for selecting height/weight pushButtons)
-    _ui->label_selectHeightOrWeight->hide();
+    /// configring combo-box
+    _ui->comboBox_selectColumn->hide();
 
     /// connecting signals and slots
     QObject::connect(_ui->pushButton, SIGNAL(clicked()), this, SLOT(slotGettingInputInformation()));
-    QObject::connect(_ui->pushButton_height, SIGNAL(clicked()), this, SLOT(slotPushingHeightWeightButtons()));
-    QObject::connect(_ui->pushButton_weight, SIGNAL(clicked()), this, SLOT(slotPushingHeightWeightButtons()));
 }
 
 void Arad::MainWindow::setRange(QString const& range)
@@ -89,7 +82,7 @@ void Arad::MainWindow::setSpamLines(QString const& spamLines)
 {
     if (spamLines.size() != 0)
     {
-        std::vector<std::string> seperatedSpamLines = Arad::CsvParser::split(spamLines.toStdString(), SPAM_LINES_DELIMITER);
+        std::vector<std::string> seperatedSpamLines = this->_csvParser->split(spamLines.toStdString());
 
         /// converting seperatedSpamLines item to uint32_t
         for (std::string const& item : seperatedSpamLines)
@@ -117,85 +110,58 @@ Arad::TableDrawing::TableWidget* Arad::MainWindow::createTableDrawer(QString con
     return tableDrawer;
 }
 
-void Arad::MainWindow::slotGettingInputInformation()
+void Arad::MainWindow::slot_gettingInputInformation()
 {
     Arad::MainWindow::setPath(_ui->lineEdit_filePath->text());
     _ui->lineEdit_filePath->setEnabled(false);
-    
-    Arad::MainWindow::setDelimiter(_ui->lineEdit_delimiter->text());
-    _ui->lineEdit_delimiter->setEnabled(false);
-
-    Arad::MainWindow::setHeightColumn(_ui->lineEdit_heightColumn->text());
-    _ui->lineEdit_heightColumn->setEnabled(false);
-
-    Arad::MainWindow::setWeightColumn(_ui->lineEdit_weightColumn->text());
-    _ui->lineEdit_weightColumn->setEnabled(false);
-
-    Arad::MainWindow::setRange(_ui->lineEdit_range->text());
-    _ui->lineEdit_range->setEnabled(false);
-
-    Arad::MainWindow::setSpamLines(_ui->lineEdit_spamLines->text());
-    _ui->lineEdit_spamLines->setEnabled(false);
 
     QFont pushButtonFont("Consolas", -1, 50, true);
     _ui->pushButton->setFont(pushButtonFont);
-    _ui->pushButton->setText("OK");
+    _ui->pushButton->setText("Data Entered");
     _ui->pushButton->setEnabled(false); /// disabling the pushButton (after getting user input information) 
-    
-    /// showing _ui->pushButton_height and _ui->pushButton_weight and the related label
-    _ui->label_selectHeightOrWeight->show();
-    _ui->pushButton_height->show();
-    _ui->pushButton_weight->show();
+
+    /// showing label_selectColumn
+    _ui->label_selectColumn->show();
+
+    /// showing comboBox_selectColumn
+    _ui->comboBox_selectColumn->show();
 }
 
-void Arad::MainWindow::slotPushingHeightWeightButtons()
-{
-    QObject *pushedButton = QObject::sender();
-    
-    if (pushedButton == _ui->pushButton_height)
-    {
-        _ui->pushButton_height->setText("Height (Selected)");
-        _ui->pushButton_weight->setText("Weight (Not-Selected)");
-        _ui->pushButton_height->setEnabled(false);
-        _ui->pushButton_weight->setEnabled(false);
-        
-        this->_scoper = new Arad::Scoping::ScopingCls(
-                    Arad::MainWindow::getPath(),
-                    Arad::MainWindow::getDelimiter(),
-                    Arad::MainWindow::getSpamLines(),
-                    Arad::MainWindow::getHeightColumn(),
-                    Arad::MainWindow::getRange()
-        );
+void Arad::MainWindow::slot_comboBoxIndexChange()
+{    
+    ////////////////// FOR HEIGHT //////////////////
+    this->_scoper = new Arad::Scoping::ScopingCls(
+                Arad::MainWindow::getPath(),
+                Arad::MainWindow::getDelimiter(),
+                Arad::MainWindow::getSpamLines(),
+                Arad::MainWindow::getHeightColumn(),
+                Arad::MainWindow::getRange()
+    );
 
-        this->_tableDrawing = Arad::MainWindow::createTableDrawer("height", this->_scoper);
-        this->_tableDrawing->draw();
+    this->_tableDrawing = Arad::MainWindow::createTableDrawer("height", this->_scoper);
+    this->_tableDrawing->draw();
+
+    this->_diagram = new Arad::DiagramDrawing::HistogramDiagram(this->_scoper);
+    this->_diagram->drawDiagram();
+    this->_diagram->show();
+    ///////////////////////////////////////////////
         
-        this->_diagram = new Arad::DiagramDrawing::HistogramDiagram(this->_scoper);
-        this->_diagram->drawDiagram();
-        this->_diagram->show();
-    }
-    else if (pushedButton == _ui->pushButton_weight)
-    {
-        _ui->pushButton_height->setText("Height (Not-Selected)");
-        _ui->pushButton_weight->setText("Weight (Selected)");
-        _ui->pushButton_height->setEnabled(false);
-        _ui->pushButton_weight->setEnabled(false);
-        
-        this->_scoper = new Arad::Scoping::ScopingCls(
-                    Arad::MainWindow::getPath(),
-                    Arad::MainWindow::getDelimiter(),
-                    Arad::MainWindow::getSpamLines(),
-                    Arad::MainWindow::getWeightColumn(),
-                    Arad::MainWindow::getRange()
-        );
-        
-        this->_tableDrawing = Arad::MainWindow::createTableDrawer("weight", this->_scoper);
-        this->_tableDrawing->draw();
-        
-        this->_diagram = new Arad::DiagramDrawing::HistogramDiagram(this->_scoper);
-        this->_diagram->drawDiagram();
-        this->_diagram->show();
-    }
+    ///////////////// FOR WEIGHT ////////////////////
+    this->_scoper = new Arad::Scoping::ScopingCls(
+                Arad::MainWindow::getPath(),
+                Arad::MainWindow::getDelimiter(),
+                Arad::MainWindow::getSpamLines(),
+                Arad::MainWindow::getWeightColumn(),
+                Arad::MainWindow::getRange()
+    );
+
+    this->_tableDrawing = Arad::MainWindow::createTableDrawer("weight", this->_scoper);
+    this->_tableDrawing->draw();
+
+    this->_diagram = new Arad::DiagramDrawing::HistogramDiagram(this->_scoper);
+    this->_diagram->drawDiagram();
+    this->_diagram->show();
+    //////////////////////////////////////////////////
 }
 
 Arad::MainWindow::~MainWindow()

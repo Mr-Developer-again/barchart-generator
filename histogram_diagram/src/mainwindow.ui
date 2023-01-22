@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>756</width>
-    <height>908</height>
+    <height>816</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -24,7 +24,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>270</y>
+      <y>90</y>
       <width>121</width>
       <height>25</height>
      </rect>
@@ -34,13 +34,13 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>250</y>
-      <width>161</width>
+      <y>70</y>
+      <width>181</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
-     <string>Enter Arbitrary Range:</string>
+     <string>Enter Number of Columns:</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_filePath">
@@ -66,129 +66,24 @@
      <string>Enter CSV File Path:</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_delimiter">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>90</y>
-      <width>131</width>
-      <height>25</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_delimiter">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>70</y>
-      <width>331</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Enter used delimiter between csv line contents:</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>100</y>
-      <width>251</width>
-      <height>151</height>
+      <x>140</x>
+      <y>170</y>
+      <width>491</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string>PushButton</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_heightColumn">
+   <widget class="QLabel" name="label_selectColumn">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>130</y>
-      <width>111</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Height Column:</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_heightColumn">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>150</y>
-      <width>113</width>
-      <height>25</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_weightColumn">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>210</y>
-      <width>113</width>
-      <height>25</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_weightColumn">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>190</y>
-      <width>111</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Weight Column:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_enterSpamLines">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>310</y>
-      <width>371</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Enter Spam Lines (the lines that are not information) :</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_spamLineSample">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>330</y>
-      <width>251</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>(seperate them by dash(-), e.g. 1-2-3)</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_spamLines">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>350</y>
-      <width>121</width>
-      <height>25</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_selectHeightOrWeight">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>420</y>
+      <x>300</x>
+      <y>270</y>
       <width>181</width>
       <height>17</height>
      </rect>
@@ -197,37 +92,11 @@
      <string>Select one of the follows:</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_height">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>450</y>
-      <width>171</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>PushButton</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_weight">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>480</y>
-      <width>171</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>PushButton</string>
-    </property>
-   </widget>
    <widget class="Line" name="line">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>520</y>
+      <x>40</x>
+      <y>430</y>
       <width>651</width>
       <height>20</height>
      </rect>
@@ -239,8 +108,8 @@
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
-      <x>390</x>
-      <y>560</y>
+      <x>380</x>
+      <y>470</y>
       <width>361</width>
       <height>331</height>
      </rect>
@@ -249,8 +118,8 @@
    <widget class="Line" name="line_2">
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>540</y>
+      <x>360</x>
+      <y>450</y>
       <width>20</width>
       <height>361</height>
      </rect>
@@ -262,8 +131,8 @@
    <widget class="QCustomPlot" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>570</y>
+      <x>0</x>
+      <y>480</y>
       <width>351</width>
       <height>311</height>
      </rect>
@@ -272,8 +141,8 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>540</y>
+      <x>0</x>
+      <y>450</y>
       <width>67</width>
       <height>17</height>
      </rect>
@@ -285,14 +154,24 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>390</x>
-      <y>540</y>
+      <x>380</x>
+      <y>450</y>
       <width>67</width>
       <height>17</height>
      </rect>
     </property>
     <property name="text">
      <string>Table:</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_selectColumn">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>300</y>
+      <width>151</width>
+      <height>25</height>
+     </rect>
     </property>
    </widget>
   </widget>
@@ -307,11 +186,7 @@
  </customwidgets>
  <tabstops>
   <tabstop>lineEdit_filePath</tabstop>
-  <tabstop>lineEdit_delimiter</tabstop>
-  <tabstop>lineEdit_heightColumn</tabstop>
-  <tabstop>lineEdit_weightColumn</tabstop>
   <tabstop>lineEdit_range</tabstop>
-  <tabstop>lineEdit_spamLines</tabstop>
   <tabstop>pushButton</tabstop>
  </tabstops>
  <resources/>

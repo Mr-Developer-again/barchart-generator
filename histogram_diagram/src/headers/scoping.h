@@ -1,6 +1,8 @@
 #ifndef ARAD_SCOPING_SCOPINGCLS_SCOPING_H
 #define ARAD_SCOPING_SCOPINGCLS_SCOPING_H
 
+#include <headers/csvparser.h>
+
 #include <QTextStream>
 #include <QVector>
 #include <QList>
@@ -32,6 +34,8 @@ namespace Arad
             /// this variable list stores range string (like _mapper but only stores
             /// range string and doesn't stores any index for the range string)
             QList<QString> _labelList;
+
+            Arad::CsvParser::CsvParserCls *_csvParser = nullptr;
         };
     
     } // Scoping namespace
