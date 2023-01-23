@@ -59,10 +59,10 @@ std::vector<std::string> Arad::CsvParser::CsvParserCls::split(std::string const&
     }
 
 	result.push_back(string.substr(pos_start));
-    return result;
+   return result;
 }
 
-QVector<float> Arad::CsvParser::CsvParserCls::extracter(int columnNumber)
+QVector<double> Arad::CsvParser::CsvParserCls::extracter(int columnNumber)
 {
 	--columnNumber;
 
@@ -71,7 +71,7 @@ QVector<float> Arad::CsvParser::CsvParserCls::extracter(int columnNumber)
 		throw std::invalid_argument("couldn't open the file");
 
 	std::vector<std::string> splitedLine;
-	QVector<float> result;
+    QVector<double> result;
 	std::string readLine = "";
     uint32_t lineCounter = 0;
 
@@ -110,15 +110,16 @@ QList<QString> Arad::CsvParser::CsvParserCls::getColumnNames()
     else
         throw std::runtime_error("couldn't open the file");
 
-    std::vector<std::string> splited = Arad::CsvParser::CsvParserCls::split(firstLine);
+    firstLine = Arad::CsvParser::CsvParserCls::doubleQuoteRemover(firstLine);
 
-    for (auto &item : splited)
-        item = Arad::CsvParser::CsvParserCls::doubleQuoteRemover(item);
+    std::vector<std::string> splited = Arad::CsvParser::CsvParserCls::split(firstLine);
 
     for (auto const& item : splited)
         output.push_back(item.c_str());
 
     fileInput.close();
+
+    output[0] = "";
     return output;
 }
 

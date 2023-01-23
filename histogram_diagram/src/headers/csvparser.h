@@ -15,7 +15,7 @@ namespace Arad
         class CsvParserCls
         {
         public:
-            CsvParserCls(QString const& filePath, QString const& delimiter = " ,",
+            CsvParserCls(QString const& filePath, QString const& delimiter = ", ",
                          QVector<uint32_t> spamLines = QVector<uint32_t>(1));
 
             CsvParserCls() = delete;
@@ -27,7 +27,7 @@ namespace Arad
             ///         spamLines -> the lines that aren't information to extract and have been written
             ///                      only for human-readablity reasons
             ///         columnNumber -> do you want to extract contents of which column? (a number from 0)
-            QVector<float> extracter(int columnNumber);
+            QVector<double> extracter(int columnNumber);
 
             /// spliter ; this function gets a string and split it with some specified delimiter
             std::vector<std::string> split(std::string const& string);

@@ -50,17 +50,6 @@ bool Arad::MainWindow::onlyHasNumbers(QString const& input)
     return true;
 }
 
-void Arad::MainWindow::setRange(QString const& range)
-{
-    if (Arad::MainWindow::onlyHasNumbers(range))
-        this->_range = (range.toInt() >= 1) ? range.toInt() : throw std::invalid_argument("the input range must be >= 1");
-    else
-        throw std::invalid_argument("the range must only contains numbers");
-}
-
-uint32_t Arad::MainWindow::getRange() const
-{ return this->_range; }
-
 void Arad::MainWindow::setNumberOfColumns(QString const& number)
 {
     if (Arad::MainWindow::onlyHasNumbers(number))
@@ -114,17 +103,23 @@ uint32_t Arad::MainWindow::getWeightColumn() const
 QVector<uint32_t> const& Arad::MainWindow::getSpamLines() const
 { return this->_spamLines; }
 
-Arad::TableDrawing::TableWidget* Arad::MainWindow::createTableDrawer(QString const& type, Arad::Scoping::ScopingCls* scoper) const
+void Arad::MainWindow::setComboBoxItems(QList<QString> const& list)
 {
-    Arad::TableDrawing::TableWidget* tableDrawer = nullptr;
-    
-    QString loweredType = type.toLower();
-    if (loweredType == "height")
-        tableDrawer = new Arad::TableDrawing::HeightTableWidget(scoper);
-    else if (loweredType == "weight")
-        tableDrawer = new Arad::TableDrawing::WeightTableWidget(scoper);
-    
-    return tableDrawer;
+    this->_comboBoxItems = (list.size() != 0) ? list : throw std::runtime_error("size of comboBox items is 0 (invalid)");
+}
+
+QList<QString> const& Arad::MainWindow::getComboBoxItems() const
+{ return this->_comboBoxItems; }
+
+template<typename itemType>
+int32_t Arad::MainWindow::indexFinder(QList<itemType> const& container, itemType item)
+{
+    uint32_t indexCounter = 0;
+    for (typename QList<itemType>::ConstIterator it = container.begin(); it != container.end(); std::advance(it, 1), indexCounter++)
+        if (*it == item)
+            return indexCounter;
+
+    return -1;
 }
 
 void Arad::MainWindow::slot_gettingInputInformation()
@@ -144,59 +139,97 @@ void Arad::MainWindow::slot_gettingInputInformation()
 
         /// showing comboBox_selectColumn
         _ui->comboBox_selectColumn->show();
+
+        this->_csvParser = new Arad::CsvParser::CsvParserCls(this->_csvFilePath);
+
+        Arad::MainWindow::setComboBoxItems(this->_csvParser->getColumnNames());
+
+        /// removing items of the comboBox
+        _ui->comboBox_selectColumn->clear();
+
+        /// adding items to the _ui->comboBox_selectColumn
+        _ui->comboBox_selectColumn->addItems(this->_comboBoxItems);
     }
     catch(std::invalid_argument const& ex)
     {
+        mesgBx.setWindowTitle("Invalid Argument Error");
         mesgBx.setText(ex.what());
         mesgBx.exec();
     }
     catch(std::runtime_error const& ex)
     {
+        mesgBx.setWindowTitle("Runtime Error");
+        mesgBx.setText(ex.what());
+        mesgBx.exec();
+    }
+    catch(std::out_of_range const& ex)
+    {
+        mesgBx.setWindowTitle("Out Of Range Error");
         mesgBx.setText(ex.what());
         mesgBx.exec();
     }
     catch(...)
     {
+        mesgBx.setWindowTitle("Error!!");
         mesgBx.setText("something went wrong!");
         mesgBx.exec();
     }
 }
 
 void Arad::MainWindow::slot_comboBoxTextChange(QString const& str)
-{    
-    ////////////////// FOR HEIGHT //////////////////
-    this->_scoper = new Arad::Scoping::ScopingCls(
-                Arad::MainWindow::getPath(),
-                Arad::MainWindow::getDelimiter(),
-                Arad::MainWindow::getSpamLines(),
-                Arad::MainWindow::getHeightColumn(),
-                Arad::MainWindow::getRange()
-    );
+{
+    QMessageBox mesgBx;
 
-    this->_tableDrawing = Arad::MainWindow::createTableDrawer("height", this->_scoper);
-    this->_tableDrawing->draw();
+    int32_t indexNumber = Arad::MainWindow::indexFinder<QString>(this->_comboBoxItems, str);
 
-    this->_diagram = new Arad::DiagramDrawing::HistogramDiagram(this->_scoper);
-    this->_diagram->drawDiagram();
-    this->_diagram->show();
-    /////////////////////////////////////////////////
-        
-    ///////////////// FOR WEIGHT ////////////////////
-    this->_scoper = new Arad::Scoping::ScopingCls(
-                Arad::MainWindow::getPath(),
-                Arad::MainWindow::getDelimiter(),
-                Arad::MainWindow::getSpamLines(),
-                Arad::MainWindow::getWeightColumn(),
-                Arad::MainWindow::getRange()
-    );
+    if (indexNumber >= 1)
+    {
+        try
+        {
+            this->_scoper = new Arad::Scoping::ScopingCls(
+                        this->_csvFilePath,
+                        (indexNumber + 2),
+                        this->_numberOfColumns
+            );
 
-    this->_tableDrawing = Arad::MainWindow::createTableDrawer("weight", this->_scoper);
-    this->_tableDrawing->draw();
+            this->_diagram = new Arad::DiagramDrawing::HistogramDiagram(this->_scoper);
+            this->_diagram->drawDiagram();
+            this->_diagram->show();
+        }
+        catch(std::invalid_argument const& ex)
+        {
+            mesgBx.setWindowTitle("Invalid Argument Error");
+            mesgBx.setText(ex.what());
+            mesgBx.exec();
+        }
+        catch(std::runtime_error const& ex)
+        {
+            mesgBx.setWindowTitle("Runtime Error");
+            mesgBx.setText(ex.what());
+            mesgBx.exec();
+        }
+        catch(std::out_of_range const& ex)
+        {
+            mesgBx.setWindowTitle("Out Of Range Error");
+            mesgBx.setText(ex.what());
+            mesgBx.exec();
+        }
+        catch(...)
+        {
+            mesgBx.setWindowTitle("Error!!");
+            mesgBx.setText("something went wrong!");
+            mesgBx.exec();
+        }
 
-    this->_diagram = new Arad::DiagramDrawing::HistogramDiagram(this->_scoper);
-    this->_diagram->drawDiagram();
-    this->_diagram->show();
-    //////////////////////////////////////////////////
+//        QTextStream out(stdout);
+//        for (auto const& item : this->_comboBoxItems)
+//            if (item == str and str != "")
+//                out << item << Qt::endl;
+
+//        this->_tableDrawing = new Arad::TableDrawing::HeightTableWidget(this->_scoper);
+//        this->_tableDrawing = new Arad::TableDrawing::WeightTableWidget(this->_scoper);
+//        this->_tableDrawing->draw();
+    }
 }
 
 void Arad::MainWindow::slot_lineEditTextChanged(QString const& newTxt)
@@ -210,4 +243,6 @@ Arad::MainWindow::~MainWindow()
     delete _ui;
     delete this->_scoper;
     delete this->_tableDrawing;
+    delete this->_csvParser;
+    delete this->_diagram;
 }

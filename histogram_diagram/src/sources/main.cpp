@@ -2,8 +2,6 @@
 
 #include <QApplication>
 
-#define DELIMITER ", "
-
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

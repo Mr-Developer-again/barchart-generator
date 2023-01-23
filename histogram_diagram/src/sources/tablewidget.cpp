@@ -20,7 +20,7 @@ QList<QString> const& Arad::TableDrawing::TableWidget::getColumnLabels() const
 
 void Arad::TableDrawing::TableWidget::draw()
 {    
-    QVector<QVector<float>> tempRangedVector = this->_scopingObj->getRangedVector();
+    QVector<QVector<double>> tempRangedVector = this->_scopingObj->getRangedVector();
     Arad::TableDrawing::TableWidget::setRowLabels(this->_scopingObj->getLabelList());
     Arad::TableDrawing::TableWidget::setColumnLabels(QList<QString>({"Count"}));
     

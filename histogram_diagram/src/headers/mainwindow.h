@@ -13,6 +13,7 @@
 #include <QTextStream>
 #include <QPushButton>
 #include <QLabel>
+#include <QList>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -30,12 +31,6 @@ namespace Arad
         explicit MainWindow(QWidget *parent = nullptr);
         MainWindow() = default;
         virtual ~MainWindow();
-
-        /// sets range of scopes in histogram diagram
-        void setRange(QString const&);
-        
-        /// gets range of scopes in historgram diagram
-        uint32_t getRange() const;
 
         void setNumberOfColumns(QString const&);
         uint32_t getNumberOfColumns() const;
@@ -64,10 +59,13 @@ namespace Arad
         /// gets user input spam lines
         QVector<uint32_t> const& getSpamLines() const;
 
-    private:
-        /// range of scopes in histogram diagram
-        uint32_t _range = 0;
+        /// set comboBox items
+        void setComboBoxItems(QList<QString> const&);
 
+        /// get comboBox items
+        QList<QString> const& getComboBoxItems() const;
+
+    private:
         /// number of columns (user must enter)
         uint32_t _numberOfColumns = 0;
 
@@ -85,6 +83,9 @@ namespace Arad
 
         /// spam lines string
         QVector<uint32_t> const _spamLines { 1 };
+
+        /// comboBox items
+        QList<QString> _comboBoxItems;
         
         /// pointer to ui
         Ui::MainWindow *_ui;
@@ -98,9 +99,6 @@ namespace Arad
         /// defining an polymorphic object pointer
         Arad::TableDrawing::TableWidget *_tableDrawing = nullptr;
         
-        /// creating a method for controling creating object
-        Arad::TableDrawing::TableWidget* createTableDrawer(QString const& type, Arad::Scoping::ScopingCls* scoper) const;
-        
         /// creating an polymorphic object pointer for Arad::DiagramDrawing::Diagram
         Arad::DiagramDrawing::Diagram *_diagram = nullptr;
 
@@ -108,10 +106,14 @@ namespace Arad
         /// this method checks the input QString only has numbers or not?
         bool onlyHasNumbers(QString const&);
 
+        /// the following method finds index of an item inside the given container
+        template<typename itemType>
+        int32_t indexFinder(QList<itemType> const& container, itemType item);
+
     private slots:
         /// this slot fill some variables with input lines (in lineEdit sections)
         void slot_gettingInputInformation();
-        
+
         /// this slot is used for responding to clicking _ui->pushButton_height and _ui->pushButton_weight
         void slot_comboBoxTextChange(QString const&);
 

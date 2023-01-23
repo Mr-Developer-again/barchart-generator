@@ -18,7 +18,7 @@ void Arad::DiagramDrawing::HistogramDiagram::drawDiagram()
     
     /// filling labels vector by the taken list
     labels = QVector<QString>::fromList(this->_scoper->getLabelList());
-    
+
     /// filling positions vector according to the number of labels vector items
     double position = 1.0f;
     for (QVector<QString>::Iterator it = labels.begin(); it != labels.end(); std::advance(it, 1), position++)
@@ -28,10 +28,10 @@ void Arad::DiagramDrawing::HistogramDiagram::drawDiagram()
     positions.shrink_to_fit();
 
 
-    QVector<QVector<float>> tempVector;
+    QVector<QVector<double>> tempVector;
     tempVector = this->_scoper->getRangedVector();
     QVector<double> sizeVector;
-    std::for_each(tempVector.begin(), tempVector.end(), [&](QVector<float> innerVec) {
+    std::for_each(tempVector.begin(), tempVector.end(), [&](QVector<double> innerVec) {
         sizeVector.push_back(static_cast<double>(innerVec.size()));
     });
 
