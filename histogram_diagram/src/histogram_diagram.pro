@@ -13,23 +13,21 @@ SOURCES += \
     "sources/mainwindow.cpp" \
 	"../include/qcustomplot.cpp" \
     "sources/csvparser.cpp" \
-    "sources/heighttablewidget.cpp" \
     "sources/scoping.cpp" \
     "sources/tablewidget.cpp" \
     "sources/diagram.cpp" \
-    "sources/weigthtablewidget.cpp" \
-    "sources/histogramdiagram.cpp"
+    "sources/histogramdiagram.cpp" \
+    "sources/heightweighttablewidget.cpp"
 
 HEADERS += \
     "headers/mainwindow.h" \
 	"../include/qcustomplot.h" \
 	"headers/csvparser.h" \
-    "headers/heighttablewidget.h" \
     "headers/scoping.h" \
     "headers/tablewidget.h" \
     "headers/diagram.h" \
-    "headers/weighttablewidget.h" \
-    "headers/histogramdiagram.h"
+    "headers/histogramdiagram.h" \
+    "headers/heightweighttablewidget.h"
 
 FORMS += \
     "./mainwindow.ui" \
