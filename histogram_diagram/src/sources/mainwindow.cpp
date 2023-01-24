@@ -1,8 +1,7 @@
 #include <headers/mainwindow.h>
 #include <ui_mainwindow.h>
 #include <headers/scoping.h>
-#include <headers/heighttablewidget.h>
-#include <headers/weighttablewidget.h>
+#include <headers/heightweighttablewidget.h>
 #include <headers/histogramdiagram.h>
 
 #include <../include/qcustomplot.h>
@@ -195,6 +194,10 @@ void Arad::MainWindow::slot_comboBoxTextChange(QString const& str)
             this->_diagram = new Arad::DiagramDrawing::HistogramDiagram(this->_scoper);
             this->_diagram->drawDiagram();
             this->_diagram->show();
+
+            this->_tableDrawing = new Arad::TableDrawing::HeightWeightTableWidget(this->_scoper);
+            this->_tableDrawing = new Arad::TableDrawing::HeightWeightTableWidget(this->_scoper);
+            this->_tableDrawing->draw();
         }
         catch(std::invalid_argument const& ex)
         {
@@ -221,14 +224,6 @@ void Arad::MainWindow::slot_comboBoxTextChange(QString const& str)
             mesgBx.exec();
         }
 
-//        QTextStream out(stdout);
-//        for (auto const& item : this->_comboBoxItems)
-//            if (item == str and str != "")
-//                out << item << Qt::endl;
-
-//        this->_tableDrawing = new Arad::TableDrawing::HeightTableWidget(this->_scoper);
-//        this->_tableDrawing = new Arad::TableDrawing::WeightTableWidget(this->_scoper);
-//        this->_tableDrawing->draw();
     }
 }
 

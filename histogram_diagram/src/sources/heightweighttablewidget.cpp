@@ -1,6 +1,5 @@
-#include "heightweighttablewidget.h"
+#include "headers/heightweighttablewidget.h"
 
-HeightWeightTableWidget::HeightWeightTableWidget()
-{
-
-}
+Arad::TableDrawing::HeightWeightTableWidget::HeightWeightTableWidget(Arad::Scoping::ScopingCls *scopingObj, QWidget* parent)
+    : Arad::TableDrawing::TableWidget(scopingObj, parent)
+{ /* constructor body */ }
