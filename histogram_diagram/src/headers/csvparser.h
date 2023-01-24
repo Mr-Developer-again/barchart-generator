@@ -16,7 +16,7 @@ namespace Arad
         {
         public:
             CsvParserCls(QString const& filePath, QString const& delimiter = ", ",
-                         QVector<uint32_t> spamLines = QVector<uint32_t>(1));
+                         QVector<uint32_t> spamLines = { 1 });
 
             CsvParserCls() = delete;
 

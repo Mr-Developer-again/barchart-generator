@@ -188,7 +188,7 @@ void Arad::MainWindow::slot_comboBoxTextChange(QString const& str)
         {
             this->_scoper = new Arad::Scoping::ScopingCls(
                         this->_csvFilePath,
-                        (indexNumber + 2),
+                        (indexNumber + 1),
                         this->_numberOfColumns
             );
 

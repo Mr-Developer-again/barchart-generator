@@ -9,25 +9,25 @@ Arad::Scoping::ScopingCls::ScopingCls(QString const& filePath, uint32_t columnNu
     this->_maxData = container[container.size() - 1] + 1;
     this->_numberOfColumns = numberOfColumns;
     this->_range = Arad::Scoping::ScopingCls::calculateRange();
-    Arad::Scoping::ScopingCls::doScoping(numberOfColumns);
+    Arad::Scoping::ScopingCls::doScoping(columnNumber);
 }
 
 void Arad::Scoping::ScopingCls::doScoping(uint32_t columnNumber)
 {
+    QVector<double> container = this->_csvParser->extracter(columnNumber);
     QVector<QVector<double>> result;
-    QVector<double> tempVector = this->_csvParser->extracter(columnNumber);
+    QVector<double> tempVector;
     QList<QString> ranges; /// this list stores ranges of each column (data scope) in a human-readable format
 
     double startRange = this->_minData;
     double stopRange = startRange + this->_range;
-
 
     QString startRangeStr = "";
     QString stopRangeStr = "";
     bool isEnd = false;
     for (uint32_t  i = 0; i < this->_numberOfColumns; ++i)
     {
-        for (auto const& number : tempVector)
+        for (auto const& number : container)
         {
             if (i == (this->_numberOfColumns - 1))
             {
