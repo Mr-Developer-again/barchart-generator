@@ -1,8 +1,7 @@
 #include <headers/tablewidget.h>
 
-Arad::TableDrawing::TableWidget::TableWidget(Arad::Scoping::ScopingCls *scopingObj, QWidget* parent)
-    : QDialog(parent),
-      _tableWidget(new QTableWidget(parent)),
+Arad::TableDrawing::TableWidget::TableWidget(Arad::Scoping::ScopingCls *scopingObj, QTableWidget* parent)
+    : _tableWidget(parent),
       _scopingObj(scopingObj)
 { /* constructor body */ }
 

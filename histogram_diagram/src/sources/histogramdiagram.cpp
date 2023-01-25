@@ -6,7 +6,7 @@
 
 #include <QVector>
 
-Arad::DiagramDrawing::HistogramDiagram::HistogramDiagram(Arad::Scoping::ScopingCls *scoper, QWidget* parent)
+Arad::DiagramDrawing::HistogramDiagram::HistogramDiagram(Arad::Scoping::ScopingCls *scoper, QCustomPlot* parent)
     : Arad::DiagramDrawing::Diagram(parent),
       _scoper(scoper)
 { /* constructor body */ }
@@ -43,16 +43,16 @@ void Arad::DiagramDrawing::HistogramDiagram::drawDiagram()
     QSharedPointer<QCPAxisTickerText> textTicker(new QCPAxisTickerText);
     textTicker->setTicks(positions, labels);
     textTicker->setTickStepStrategy(QCPAxisTickerText::TickStepStrategy::tssReadability);
-    this->_ui->widget->xAxis->setTicker(textTicker);
-    this->_ui->widget->xAxis->setTickLabelRotation(60);
-    this->_ui->widget->xAxis->setTickLength(0, 4);
+    this->_ui->xAxis->setTicker(textTicker);
+    this->_ui->xAxis->setTickLabelRotation(60);
+    this->_ui->xAxis->setTickLength(0, 4);
 
-    this->_ui->widget->xAxis->setLabel("Ranges");
-    this->_ui->widget->yAxis->setLabel("Count");
+    this->_ui->xAxis->setLabel("Ranges");
+    this->_ui->yAxis->setLabel("Count");
 
-    this->_ui->widget->yAxis->setRange(0, maxSize);
+    this->_ui->yAxis->setRange(0, maxSize);
 
-    QCPBars *bar = new QCPBars(this->_ui->widget->xAxis, this->_ui->widget->yAxis);
+    QCPBars *bar = new QCPBars(this->_ui->xAxis, this->_ui->yAxis);
     bar->setAntialiased(false);
     bar->setBrush(QColor(0, 0, 255, 50));
     bar->setPen(QColor(0, 0, 255));
@@ -61,8 +61,8 @@ void Arad::DiagramDrawing::HistogramDiagram::drawDiagram()
 
     bar->rescaleAxes(true);
     bar->rescaleKeyAxis(true);
-    this->_ui->widget->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
-    this->_ui->widget->replot();
+    this->_ui->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+    this->_ui->replot();
 }
 
 Arad::DiagramDrawing::HistogramDiagram::~HistogramDiagram()

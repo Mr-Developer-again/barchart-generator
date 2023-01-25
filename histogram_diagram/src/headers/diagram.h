@@ -5,8 +5,6 @@
 
 #include <../include/qcustomplot.h>
 
-#include <QDialog>
-
 namespace Ui
 {
     class Diagram;
@@ -18,18 +16,17 @@ namespace Arad
     namespace DiagramDrawing
     {
 
-        class Diagram : public QDialog
+        class Diagram
         {
-            Q_OBJECT
             
         public:
-            explicit Diagram(QWidget *parent = nullptr);
+            explicit Diagram(QCustomPlot *parent = nullptr);
             virtual ~Diagram();
-            
+
             virtual void drawDiagram() = 0;
-            
+
+            QCustomPlot *_ui = nullptr;
         protected:
-            Ui::Diagram *_ui;
         };
         
     } // DiagramDrawing namespace

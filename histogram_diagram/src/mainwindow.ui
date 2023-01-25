@@ -7,13 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>756</width>
-    <height>816</height>
+    <height>617</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>756</width>
     <height>0</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>756</width>
+    <height>16777215</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -69,10 +75,10 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>170</y>
-      <width>491</width>
-      <height>31</height>
+      <x>490</x>
+      <y>30</y>
+      <width>221</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="text">
@@ -82,8 +88,8 @@
    <widget class="QLabel" name="label_selectColumn">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>270</y>
+      <x>270</x>
+      <y>140</y>
       <width>181</width>
       <height>17</height>
      </rect>
@@ -96,8 +102,8 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>430</y>
-      <width>651</width>
+      <y>230</y>
+      <width>671</width>
       <height>20</height>
      </rect>
     </property>
@@ -109,9 +115,9 @@
     <property name="geometry">
      <rect>
       <x>380</x>
-      <y>470</y>
-      <width>361</width>
-      <height>331</height>
+      <y>280</y>
+      <width>341</width>
+      <height>311</height>
      </rect>
     </property>
    </widget>
@@ -119,7 +125,7 @@
     <property name="geometry">
      <rect>
       <x>360</x>
-      <y>450</y>
+      <y>250</y>
       <width>20</width>
       <height>361</height>
      </rect>
@@ -131,18 +137,18 @@
    <widget class="QCustomPlot" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>480</y>
-      <width>351</width>
-      <height>311</height>
+      <x>20</x>
+      <y>290</y>
+      <width>331</width>
+      <height>301</height>
      </rect>
     </property>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>450</y>
+      <x>20</x>
+      <y>250</y>
       <width>67</width>
       <height>17</height>
      </rect>
@@ -155,7 +161,7 @@
     <property name="geometry">
      <rect>
       <x>380</x>
-      <y>450</y>
+      <y>250</y>
       <width>67</width>
       <height>17</height>
      </rect>
@@ -167,8 +173,8 @@
    <widget class="QComboBox" name="comboBox_selectColumn">
     <property name="geometry">
      <rect>
-      <x>310</x>
-      <y>300</y>
+      <x>280</x>
+      <y>170</y>
       <width>151</width>
       <height>25</height>
      </rect>

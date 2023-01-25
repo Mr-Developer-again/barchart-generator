@@ -15,7 +15,7 @@ namespace Arad
         class HistogramDiagram : public Arad::DiagramDrawing::Diagram
         {
         public:
-            explicit HistogramDiagram(Arad::Scoping::ScopingCls *scoper, QWidget* parent = nullptr);
+            explicit HistogramDiagram(Arad::Scoping::ScopingCls *scoper, QCustomPlot* parent = nullptr);
             virtual ~HistogramDiagram();
 
             void drawDiagram() override;

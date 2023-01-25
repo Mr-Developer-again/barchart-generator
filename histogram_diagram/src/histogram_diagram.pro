@@ -31,7 +31,6 @@ HEADERS += \
 
 FORMS += \
     "./mainwindow.ui" \
-    "./diagram.ui"
 
 TRANSLATIONS += \
     histogram_diagram_en_US.ts

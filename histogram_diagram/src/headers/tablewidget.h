@@ -6,7 +6,6 @@
 #include <QList>
 #include <QTextStream>
 #include <QTableWidget>
-#include <QDialog>
 
 namespace Arad
 {
@@ -14,12 +13,11 @@ namespace Arad
     namespace TableDrawing
     {
 
-        class TableWidget : public QDialog
+        class TableWidget
         {
-            Q_OBJECT
             
         public:
-            explicit TableWidget(Arad::Scoping::ScopingCls *scopingObj, QWidget* parent = nullptr);
+            explicit TableWidget(Arad::Scoping::ScopingCls *scopingObj, QTableWidget* parent = nullptr);
             virtual ~TableWidget();
 
             virtual void draw();

@@ -23,10 +23,10 @@ Arad::MainWindow::MainWindow(QWidget *parent)
     
     /// configuring MainWindow
     this->setFixedSize(this->geometry().width(), this->geometry().height()); /// fixing size of the form
-    
+
     /// configuring pushButton
     _ui->pushButton->setText("Send All Information");
-    
+
     /// configuring label_selectColumn (for selecting height/weight pushButtons)
     _ui->label_selectColumn->hide();
 
@@ -191,12 +191,13 @@ void Arad::MainWindow::slot_comboBoxTextChange(QString const& str)
                         this->_numberOfColumns
             );
 
-            this->_diagram = new Arad::DiagramDrawing::HistogramDiagram(this->_scoper);
-            this->_diagram->drawDiagram();
-            this->_diagram->show();
+            if (this->_diagram != nullptr)
+                this->_ui->widget->clearPlottables();
 
-            this->_tableDrawing = new Arad::TableDrawing::HeightWeightTableWidget(this->_scoper);
-            this->_tableDrawing = new Arad::TableDrawing::HeightWeightTableWidget(this->_scoper);
+            this->_diagram = new Arad::DiagramDrawing::HistogramDiagram(this->_scoper, this->_ui->widget);
+            this->_diagram->drawDiagram();
+
+            this->_tableDrawing = new Arad::TableDrawing::HeightWeightTableWidget(this->_scoper, this->_ui->tableWidget);
             this->_tableDrawing->draw();
         }
         catch(std::invalid_argument const& ex)

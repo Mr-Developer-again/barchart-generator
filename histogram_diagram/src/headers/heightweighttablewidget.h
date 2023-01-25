@@ -12,7 +12,7 @@ namespace Arad
         class HeightWeightTableWidget : public Arad::TableDrawing::TableWidget
         {
         public:
-            explicit HeightWeightTableWidget(Arad::Scoping::ScopingCls *scopingObj, QWidget* parent = nullptr);
+            explicit HeightWeightTableWidget(Arad::Scoping::ScopingCls *scopingObj, QTableWidget* parent = nullptr);
             HeightWeightTableWidget() = delete;
             virtual ~HeightWeightTableWidget() = default;
         };
